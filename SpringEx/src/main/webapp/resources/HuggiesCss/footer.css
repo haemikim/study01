@@ -1,0 +1,120 @@
+@charset "UTF-8";
+
+
+#footer {
+    background-image: url("/resources/HuggiesImg/baby2.jpg");
+    background-size: cover;
+    background-position: 250px;
+}
+
+.footerIn{
+    width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    color: #B6B8BC;
+}
+
+.footer1{
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #B6B8BC;
+}
+
+.f_logo{
+    display: block;
+    width: 150px;
+    height: auto;
+    background-image: url("/resources/HuggiesImg/logo_footer.png");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    text-indent: -99999px;
+    margin-top: 30px;
+}
+
+.f_sc{
+    margin-right: 300px;
+}
+
+.f_sc .f_scQ{
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.2em;
+}
+
+.f_sc .f_scT{
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.32em;
+    margin-bottom: 10px;
+}
+
+.f_info .bar{
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    background-color: #B6B8BC;
+    margin: 0 5px 0 3px;
+}
+
+.f_info1{
+    margin-bottom: 20px;
+}
+
+.f_info .etc1{
+    margin-right: 10px;
+}
+
+.f_info .etc1 a{
+    font-size: 16px;
+    color: #65696A;
+}
+
+.f_info .etc2 a{
+    font-size: 16px;
+    color: #1CADDA;
+}
+
+.footer2{
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.f_sns ul{
+    display: flex;
+}
+
+.f_sns li{
+    margin-right: 15px;
+}
+
+.f_sns a{
+    display: block;
+    width: 40px;
+    height: 40px;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    text-indent: -99999px;
+}
+
+.f_sns .sns_f a{
+    background-image: url("/resources/HuggiesImg/sns_footer_facebook.png");
+}
+
+.f_sns .sns_i a{
+    background-image: url("/resources/HuggiesImg/sns_footer_@.png");
+}
+
+.f_sns .sns_y a{
+    background-image: url("/resources/HuggiesImg/sns_footer_y.png");
+}
+
+.f_sns .sns_b a{
+    background-image: url("/resources/HuggiesImg/sns_footer_b.png");
+}
+
+.copyright{
+    margin-top: 10px;
+}
