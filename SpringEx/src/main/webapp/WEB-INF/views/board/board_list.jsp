@@ -5,7 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/HuggiesCss/board_list.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/resources/HuggiesCss/board_list.css">
 <meta charset="UTF-8">
 <title>borderList</title>
 </head>
@@ -138,8 +141,25 @@
                     </tbody>
                 </table>
             </div><!--board_main--> 
+            
+            <div class="prev_next">
+                <ul class="inner_next">
+                    <li class="link_page on"><a href="#">1</a></li>
+                    <li class="link_page"><a href="#">2</a></li>
+                    <li class="link_page"><a href="#">3</a></li>
+                    <li class="link_page"><a href="#">4</a></li>
+                    <li class="link_page"><a href="#">5</a></li>
+                    <li class="pgN">
+                        <a href="#">
+                            <span class="bd_next">다음</span>
+                        </a>
+                   </li>
+                </ul>
+            </div><!--prev_next-->
+          </div><!--#board_contents -->
 
 <%@ include file="footer.jsp" %>
 </div><!-- #wrap -->
+
 </body>
 </html>

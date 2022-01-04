@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 <!DOCTYPE html>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/HuggiesCss/footer.css">
+<link rel="stylesheet" type="text/css" href="/resources/HuggiesCss/footer.css">
 <meta charset="UTF-8">
 <title>footer</title>
 
@@ -46,3 +46,6 @@
                 </div>
             </div> <!-- .footerIn -->
         </footer> <!-- #footer -->
+        
+        
+        

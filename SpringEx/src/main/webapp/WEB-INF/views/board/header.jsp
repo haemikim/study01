@@ -4,7 +4,7 @@
 <%@ page session="false" %>
 <!DOCTYPE html>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/HuggiesCss/header.css">
+<link rel="stylesheet" type="text/css" href="/resources/HuggiesCss/header.css">
 <meta charset="UTF-8">
 <title>header</title>
 

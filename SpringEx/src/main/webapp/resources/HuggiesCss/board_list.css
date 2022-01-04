@@ -259,7 +259,7 @@ a{
     width: 30px;
     color: #555;
     padding-right: 20px;
-    background-image: url("/resources/HuggiesImg/page_next.png");
+    background-image: url(../HuggiesImg/page_next.png);
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: right;
