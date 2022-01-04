@@ -20,7 +20,7 @@
             <div class="sub_title">
                 <h1 class="st">
                     <a href="board_list.html">
-                          고객 지원
+                           고객 지원
                     </a>
                 </h1>
             </div><!--sub_title-->
