@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("board")
+@RequestMapping("board2")
+// 이렇게 공통적으로 앞에 붙여야하는 부분을 따로 먼저 선언을 하고 나머지는 타입에 따라 선언한다 
 public class BoardController {
 	@Autowired
 	// priva  te BoardService service = new BoardService();
@@ -19,7 +20,7 @@ public class BoardController {
 	// 글쓰기 화면으로....
 	@GetMapping("write")
 	public void write() {
-		System.out.println("board/write");
+		System.out.println("board2/write");
 	}
 	
 	// 글쓰기 버튼을 클릭하면...
@@ -28,12 +29,12 @@ public class BoardController {
 		service.write(board);
 		System.out.println("write post....."+board);
 		
-		return "redirect:/board/list";
+		return "redirect:/board2/list";
 	}
 	// 게시판 목록 리스트
 	@GetMapping("list")
 	public void list(Model model) {
-		System.out.println("board/list");
+		System.out.println("board2/list");
 		model.addAttribute("list", service.list());		
 	}
 	// 게시판 목록 리스트에서 제목을 클릭하면....
@@ -45,7 +46,7 @@ public class BoardController {
 	@GetMapping("modify")
 	public void modify(BoardDTO board,Model model) {
 		model.addAttribute("detail",service.detail(board));
-		System.out.println("board/modify");
+		System.out.println("board2/modify");
 	}
 	// 글수정 버튼을 클릭하면.....
 	@PostMapping("modify")
@@ -54,14 +55,14 @@ public class BoardController {
 		//update
 		service.modify(board);
 		rttr.addAttribute("bno", board.getBno());
-		return "redirect:/board/detail";
+		return "redirect:/board2/detail";
 	}
 	// 글삭제 버튼을 클릭하면.....
 	@GetMapping("remove")
 	public String remove(BoardDTO board) {
 		System.out.println(board);
 		service.remove(board);
-		return "redirect:/board/list";
+		return "redirect:/board2/list";
 	}	
 }
 

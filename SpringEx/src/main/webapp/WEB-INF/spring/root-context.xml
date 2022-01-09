@@ -27,6 +27,6 @@
 		<property name="dataSource" ref="dataSource"></property>	
 		</bean>
 		
-		<mybatis-spring:scan base-package="org.jgt.mapper"/>
+		<mybatis-spring:scan base-package="org.jht.mapper"/>
 		
 </beans>
