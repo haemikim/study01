@@ -18,8 +18,10 @@ public class pageDTO {
 	pageDTO(Criteria cri){
 		this.cri=cri;
 		this.total=total;
-		// (int)(Math.ceil(현재 페이지 번호/10.0))*10
+		// (int)(Math.ceil(현재 페이지 번호/10.0))*10계산된 결과를andPage에 저장
 		this.endPage=(int)(Math.ceil(cri.getPageNum()/10))*10;
+		// 10-9=1
+		this.startPage=this.endPage-9;
 	}
 	
 
