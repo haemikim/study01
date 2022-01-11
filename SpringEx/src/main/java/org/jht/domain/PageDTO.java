@@ -1,6 +1,6 @@
 package org.jht.domain;
 
-public class pageDTO {
+public class PageDTO {
 	// 시작페이지번호
 	private int startPage;
 	// 끝페이지 번호
@@ -14,14 +14,23 @@ public class pageDTO {
 	// endPage를 계산하기 위한 pageNum가 필요하므로 Criteria클래스를 포함
 	private Criteria cri;
 	
-	
-	pageDTO(Criteria cri){
+	//public을 가져가야지 컨트롤러에서 실행가능
+	public PageDTO(Criteria cri, int total){
 		this.cri=cri;
 		this.total=total;
-		// (int)(Math.ceil(현재 페이지 번호/10.0))*10계산된 결과를andPage에 저장
-		this.endPage=(int)(Math.ceil(cri.getPageNum()/10))*10;
+		// (int)(Math.ceil(현재 페이지 번호/10.0))*10계산된 결과를 endPage에 저장(전체건수를 고려하지 않음)
+		this.endPage=(int)(Math.ceil(cri.getPageNum()/10.0))*10;
 		// 10-9=1
 		this.startPage=this.endPage-9;
+		//전체건수를 고려한 endpage -> realEnd
+		//(int)(Math.ceil((전체건수*1.0)/10.0))
+		int realEnd=(int)(Math.ceil((total*1.0)/cri.getAmount()));
+		//realEnd<endPage => realEnd값을 endPage에 저장
+		if(realEnd<endPage) {
+			this.endPage=realEnd;
+		}
+		this.prev=this.startPage>1;
+		this.next=this.endPage<realEnd;
 	}
 	
 

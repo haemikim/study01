@@ -33,11 +33,11 @@ public class SampleController {
 		return "member";
 	}
 	@RequestMapping(value="sample/memberDTO",method=RequestMethod.GET)
-	public String memberdto(SampleMemberDTO smd) { // 위에 방식보다 이방식이 좀더 효율적이다
+	public void memberdto(SampleMemberDTO smd) { // 위에 방식보다 이방식이 좀더 효율적이다
 		System.out.println("id="+smd.getId());
 		System.out.println("pw="+smd.getPw());
 		System.out.println("name="+smd.getName());
 		
-		return "redirect:/ memberDTO"; // 되는지 확인 제발 해보기 시발 톰캣 안되서 확인 못함
+		//return "redirect:/ memberDTO"; // 되는지 확인 제발 해보기 시발 톰캣 안되서 확인 못함
 	}
 }
