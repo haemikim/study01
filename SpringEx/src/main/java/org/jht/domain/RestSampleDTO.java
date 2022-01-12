@@ -11,6 +11,10 @@ public class RestSampleDTO {
 		this.lastName=lastname;
 	}
 	
+	public RestSampleDTO() {
+		
+	}
+	
 	
 	public int getMno() {
 		return mno;

@@ -1,4 +1,4 @@
-package org.jht.controller;
+ package org.jht.controller;
 
 import org.jht.domain.BoardDTO;
 import org.jht.domain.Criteria;

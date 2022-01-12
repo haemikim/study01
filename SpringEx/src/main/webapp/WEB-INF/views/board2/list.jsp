@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  <!--c:어쩌구를 jsp 에 적용시킬려고 사용하는 것 -->  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  <!--c 어쩌구를 j s p 에 적용시킬려고 사용하는 것 -->  
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,9 +29,10 @@
                    </tr>
                </thead>
                <tbody>
-               <!-- jstl에서 사용되는 문법 형식이<% %>문대신 ${}문으로 사용된다 -->
+               <!-- jstl에서 사용되는 문법 형식이< % % >문대신 $ { q} 문으로 사용된다 -->
                <!-- forEach는 반복문 -->
-                            <!-- item: 데이터를 저장하는 구조 (list, Array) -->
+                            <!-- for(변수명 : 배열){}과 같은 형식 -->
+                            <!-- item: 데이터를 저장하는 구조 (list, Array), 배열 -->
                		<c:forEach items="${list}" var="board"><!-- var = 변수명 (memberDTO의 변수명) -->
 						<tr>
 						    <td>${board.bno}</td>
@@ -44,7 +45,7 @@
                    </c:forEach>
                </tbody>
            </table>
-                   <!--.jsp에 있는 name이랑 DTO에 클래스가 있으면 보낼수가있다-->
+                   <!--jsp에 있는 name이랑 DTO에 클래스가 있으면 보낼수가있다-->
            <form id="actionForm" action="/board2/list" method="get">
 	           <div class="form-control bg-light border-0 small"> <!-- BoardController에 list부분에 model로 사용! -->
 	           	<input type="text" name="pageNum" value="${pageMaker.cri.pageNum}">
