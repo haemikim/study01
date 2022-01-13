@@ -12,7 +12,7 @@
 </head>
 <body>
 <h1>글 수정 화면입니다.</h1>
-	<form action="/board/modify" method="post">
+	<form action="/board2/modify" method="post">
 	  <div class="form-group row">
 	  	<div class="col-sm-12 mb-3 mb-sm-0">
 	         <input type="text" value="${detail.bno}" name="bno" class="form-control form-control-user" id="exampleFirstName" placeholder="title" readonly>

@@ -1,11 +1,13 @@
 package org.jht.service;
 
+import java.util.ArrayList;
 import org.jht.domain.ReplyDTO;
-import org.jht.mapper.ReplyMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public interface ReplyService {
 	// 댓글 쓰기 설계
-		public void write(ReplyDTO rdto);
-	
+		public int write(ReplyDTO rdto);
+	// 댓글 목록리스트 설계
+		public ArrayList<ReplyDTO> list(int bno);
+		// 댓글 수정을 하기위해 댓글내용가져오기
+		public ReplyDTO detail(int rno);
 }

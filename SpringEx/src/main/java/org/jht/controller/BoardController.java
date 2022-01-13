@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 // 이렇게 공통적으로 앞에 붙여야하는 부분을 따로 먼저 선언을 하고 나머지는 타입에 따라 선언한다 
 public class BoardController {
 	@Autowired
-	// priva  te BoardService service = new BoardService();
+	// private BoardService service = new BoardService();
 	private BoardService service; //boardService랑 연결
 	// 글쓰기 화면으로....
 	@GetMapping("write")

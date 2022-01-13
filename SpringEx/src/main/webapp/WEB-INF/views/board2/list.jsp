@@ -48,8 +48,8 @@
                    <!--jsp에 있는 name이랑 DTO에 클래스가 있으면 보낼수가있다-->
            <form id="actionForm" action="/board2/list" method="get">
 	           <div class="form-control bg-light border-0 small"> <!-- BoardController에 list부분에 model로 사용! -->
-	           	<input type="text" name="pageNum" value="${pageMaker.cri.pageNum}">
-	           	<input type="text" name="amount" value="${pageMaker.cri.amount}">
+	           	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+	           	<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 	                 <select name="search">
 	                 	 <option value="T">제목</option>
 	                 	 <option value="C">내용</option>
