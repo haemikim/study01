@@ -26,6 +26,6 @@
 	
 	<context:component-scan base-package="org.huggies.controller" />
 	
-	
+	<context:component-scan base-package="org.ex.controller" />
 	
 </beans:beans>

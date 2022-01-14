@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +39,7 @@ public class ReplyController {
 		int result=rservice.write(rdto);
 		System.out.println("result="+result);
 		//	                          insert가 정상적으로 처리가 되었을떄	
-		return result==1?new ResponseEntity<>("success",HttpStatus.OK)
+		return result==1?new ResponseEntity<>("success",HttpStatus.OK) //새로운 생성자  <배열> 성공, 코드상태.ok
 						:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		//									  insert가 비정상적으로 처리가 되었을떄
 	}// js에 getList의JSON주소를 가져온다
@@ -51,17 +53,24 @@ public class ReplyController {
 	//댓글수정을 하기위해 댓글내용 가져오기
 	@GetMapping(value="{rno}", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	
-	public ResponseEntity<ReplyDTO> getDetail(@PathVariable int rno){
+	public ResponseEntity<ReplyDTO> getDetail(@PathVariable int rno){// REST방식에서 주로 사용.URL경로의 일부를 파라미터 사용하고자 할때
 		System.out.println(rno);
 		return new ResponseEntity<>(rservice.detail(rno),HttpStatus.OK);	
 
 	}
+	@PutMapping(value="update",consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> update(@RequestBody ReplyDTO rdto){
+		System.out.println("rdto="+rdto);		  	
+		return rservice.update(rdto)==1?new ResponseEntity<>("success",HttpStatus.OK)			 // insert가 정상적으로 처리가 되었을떄
+										:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // update가 비정상적으로 처리가 되었을떄
+	}
+	@DeleteMapping(value="remove",consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> remove(@RequestBody ReplyDTO rdto){
+		System.out.println("rdto="+rdto);	
+		return rservice.remove(rdto)==1?new ResponseEntity<>("success",HttpStatus.OK)			 // insert가 정상적으로 처리가 되었을떄
+										:new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // update가 비정상적으로 처리가 되었을떄
 	
-	
-	
-	
-	
-	
+	}	
 	
 	
 	

@@ -3,21 +3,23 @@
  */	
 	var replyService=(function(){//함수선언
 		//댓글쓰기(add)를 하기 위한 함수선언
-		function add(reply, callback){// 각각  위의 add, function 부분을 들고온다
-			console.log("reply,,,")
+		function add(reply, callback){// 각각  위의  reply, function 부분을 들고온다
+			console.log("reply,,,") //  콘솔부분에 출력
 			$.ajax({
-				url:"/replies/new",
+				url:"/replies/new",  // 주소 형식(검색용이 아니라 연결용 주소인것같은>>?
 				type:"post",
-				data:JSON.stringify(reply),  // JSON.stringify : 자바스크립트 값을 JSON 문자열로 변환
-				contentType:"application/json;charset=utf-8",
-				success:function(result){// 통신이 정상적으로 성공했으면
-					console.log(result);
+				data:JSON.stringify(reply),  // JSON.stringify : 자바스크립트 값을 JSON 문자열로 변환(변환시킬것)
+				contentType:"application/json;charset=utf-8", // 출력 값을 한글로 전환시키는 것
+				success:function(result){// 통신이 정상적으로 성공했으면 
+				// controller에서 result값이 1이면 성공result값을 반환해져서 선언한 여기에 반환됨
+					console.log(result); 
 					// callback함수선언
 					// 만약에 callback이 있으면
 					if(callback)
 					// callback함수를 호풀	
 						callback(result);
 				},
+				
 				error:function(){			// 통신이 비정상적으로 처리가 되어error가 있으면
 					
 				}
@@ -48,13 +50,55 @@
 				})
 	}
 	//댓글수정을 하기위한 함수선언
+	function reupdate(reply,callback){
+		$.ajax({
+			url:"/replies/update",
+			type:"put",
+			data:JSON.stringify(reply),  // JSON.stringify : 자바스크립트 값을 JSON 문자열로 변환
+			contentType:"application/json;charset=utf-8",
+			success:function(result){// 통신이 정상적으로 성공했으면
+				console.log(result);
+				// callback함수선언
+				// 만약에 callback이 있으면
+				if(callback)
+				// callback함수를 호풀	
+					callback(result);
+			},
+			error:function(){			// 통신이 비정상적으로 처리가 되어error가 있으면
+				
+			}
+		})
+	}
+	// 댓글삭제를 하기위한 함수선언
+	function remove(reply, callback){// 각각  위의  reply, function 부분을 들고온다
+		$.ajax({
+			url:"/replies/remove",  // 주소 형식(검색용이 아니라 연결용 주소인것같은>>?
+			type:"delete",
+			data:JSON.stringify(reply),  // JSON.stringify : 자바스크립트 값을 JSON 문자열로 변환(변환시킬것)
+			contentType:"application/json;charset=utf-8", // 출력 값을 한글로 전환시키는 것
+			success:function(result){// 통신이 정상적으로 성공했으면 
+			// controller에서 result값이 1이면 성공result값을 반환해져서 선언한 여기에 반환됨
+				console.log(result); 
+				// callback함수선언
+				// 만약에 callback이 있으면
+				if(callback)
+				// callback함수를 호풀	
+					callback(result);
+			},
+			
+			error:function(){			// 통신이 비정상적으로 처리가 되어error가 있으면
+				
+			}
+		})	
+	}
 	
-	//댓글삭제를 하기위한 함수선언
 	
-		return {
+		return {// 메모리 올라가 있던걸 다시 회수하여 관리하는 역할 >> 어떤의미인지 잘 모르겠음??
 			add:add,
 			getList:getList,
-			reDetail:reDetail
+			reDetail:reDetail,
+			reupdate:reupdate,
+			remove:remove
 			};
 		
 })()
@@ -69,9 +113,19 @@ $(document).ready(function(){
 	
 	// 댓글쓰기 버튼을 클릭하면
 	$("#addReplyBtn").on("click",function(){
+		// Replyer input 내용초기화
+		$("input[name='replyer']").val("")
+		// Reply input 내용초기화
+		$("input[name='reply']").val("")
+		// rno input 내용초기화
+		$("input[name='rno']").val("")
+		// 새로운 시작이니 버튼 다시 보이게 설정
+		$("#modalRegisterBtn").show();
+
 		//모달창을 띄어라
 		$(".modal fade").modal("show");
-		
+	
+
 	});
 	//bno값
 	var bno=$("#bno").html();
@@ -86,7 +140,7 @@ $(document).ready(function(){
 			var str="";
 			
 			for(var i=0; i<list.length;i++){
-				str+="<li><div><b>"+list[i].replyer+"</b></div>"
+				str+="<li data-rno='"+list[i].rno+"'><div><b>"+list[i].replyer+"</b></div>"
 				str+="<div>"+list[i].reply+"</div>"
 				str+="</li>"	
 			}
@@ -117,13 +171,17 @@ $(document).ready(function(){
 		$(".modal").modal("hide");
 	})// 모달창안에 댓글쓰기 버튼
 	// 댓글 내용을 클릭하면(수정,삭제를 위한 창띄우기는 필수!)
-	$("#relist").on("click",function(){
+	$("#relist").on("click","li",function(){// click이벤트 범위가ul이였는데 li로변경
 		
-		replyService.reDetail(14,function(detail){
-			console.log(detail)
-			console.log(detail.replyer)
-			console.log(detail.reply)
+		// rno값을 가져오기  // this는 내가 선택한 값을 가져오는것
+		var rno=$(this).data("rno");
+
+		
+		replyService.reDetail(rno,function(detail){
 			
+			console.log(detail)
+
+		$("input[name='rno']").val(detail.rno) 
 		$("input[name='replyer']").val(detail.replyer) 
 		$("input[name='reply']").val(detail.reply)
 			
@@ -140,9 +198,43 @@ $(document).ready(function(){
 	})
 	
 })	
+	// 댓글수정버튼을 눌렀을때
+	$("#modalModBtn").on("click",function(){
+		//alert("aaa"); 연결된건지 확인용
+	
+		var reply = {rno:$("input[name='rno']").val(),reply:$("input[name='reply']").val()}; // 해당 댓글의 번호와 내용 수정
+		console.log(reply);
+		// 댓굴수정함수를 호출해서 처리
+		replyService.reupdate(reply,function(update){
+			// 콜백영역(update가 정상적으로 처리된후 조치)
+			alert("update 작업: "+update); // 수정후 알림창이 뜸(controller에서 가져온update결과값을 띄운다)
+			// 모달창 닫고
+			$(".modal").modal("hide"); // 수정을 누르면 자동으로 사라지게 설정
+			// 목록리스트를 실행
+			showList(); // 변경된 값으로 새로고침을 누르지 않고 바로 보이게 함수를 들고와서 실행시킨다
+
+	})
 	
 	
+})	
+
+	// 댓글 삭제버튼을 클릭하면
+	$("#modalRemoveBtn").on("click",function(){
+		// alert("dd"); 연결된건지 확인용
 	
+		var reply = {rno:$("input[name='rno']").val()} // 해당하는 댓글번호만 삭제
+		// 댓글삭제 함수를 호풀해서 처리
+		replyService.remove(reply,function(remove){  
+			// 콜백영역(update가 정상적으로 처리된후 조치)
+			alert("remove 작업: "+remove); // 수정후 알림창이 뜸(controller에서 가져온update결과값을 띄운다)
+			// 모달창 닫고
+			$(".modal").modal("hide"); // 수정을 누르면 자동으로 사라지게 설정
+			// 목록리스트를 실행
+			showList(); //
+			
+		})
+	})
+	// 댓글 삭제 함수를 호출해서 처리
 	
 	
 	
