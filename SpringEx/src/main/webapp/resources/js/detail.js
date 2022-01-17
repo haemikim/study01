@@ -6,7 +6,7 @@
 		function add(reply, callback){// 각각  위의  reply, function 부분을 들고온다
 			console.log("reply,,,") //  콘솔부분에 출력
 			$.ajax({
-				url:"/replies/new",  // 주소 형식(검색용이 아니라 연결용 주소인것같은>>?
+				url:"/replies/new",  // 주소 형식(controller에 있는 new랑 연결용 )
 				type:"post",
 				data:JSON.stringify(reply),  // JSON.stringify : 자바스크립트 값을 JSON 문자열로 변환(변환시킬것)
 				contentType:"application/json;charset=utf-8", // 출력 값을 한글로 전환시키는 것
@@ -15,7 +15,7 @@
 					console.log(result); 
 					// callback함수선언
 					// 만약에 callback이 있으면
-					if(callback)
+					if(callback) // controller로 보낸후 다시 불러온다
 					// callback함수를 호풀	
 						callback(result);
 				},
@@ -72,7 +72,7 @@
 	// 댓글삭제를 하기위한 함수선언
 	function remove(reply, callback){// 각각  위의  reply, function 부분을 들고온다
 		$.ajax({
-			url:"/replies/remove",  // 주소 형식(검색용이 아니라 연결용 주소인것같은>>?
+			url:"/replies/remove",  // 주소 형식(controller와 연결시킴)
 			type:"delete",
 			data:JSON.stringify(reply),  // JSON.stringify : 자바스크립트 값을 JSON 문자열로 변환(변환시킬것)
 			contentType:"application/json;charset=utf-8", // 출력 값을 한글로 전환시키는 것
@@ -92,16 +92,17 @@
 		})	
 	}
 	
+	/// 선언 > 컨트롤러 > 콜백 > 호출
 	
-		return {// 메모리 올라가 있던걸 다시 회수하여 관리하는 역할 >> 어떤의미인지 잘 모르겠음??
-			add:add,
-			getList:getList,
-			reDetail:reDetail,
+		return {// 메모리 올라가 있던걸 다시 회수하여 관리하는 역할
+			add:add,  // json 형식으로 작성한것
+			getList:getList, //  변수명:함수명
+			reDetail:reDetail, // 호출한 곳으로 다시 보내준다
 			reupdate:reupdate,
 			remove:remove
 			};
 		
-})()
+})() //저 괄호는 뭐야 무슨 용도인지 모르겠음>>???
 
 $(document).ready(function(){
 	// 상세페이지가 실헹되면 글쓰기버튼은 비활성화

@@ -31,7 +31,7 @@ public class ReplyController {
 	// produces : 반환하는 데이터 타입 정의(생략가능)
 	// * 생략을 하게되면, 웹브라우저가 알아거 타입을 판단 *
 	@PostMapping(value="new",consumes="application/json", produces={MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> create(@RequestBody ReplyDTO rdto){
+	public ResponseEntity<String> create(@RequestBody ReplyDTO rdto){ //  ResponseEntity<객체 타입 지정>는 비동기식으로 돌릴때 잘되는지 확인을 하기 위해 사용된다
 		System.out.println("ReplyDTO="+rdto);
 		// insert 성공시 ReplyMapper.xml로 부터1
 		// insert 성공시 ReplyMapper.xml로 부터0
