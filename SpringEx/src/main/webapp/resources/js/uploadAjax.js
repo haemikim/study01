@@ -51,7 +51,7 @@ $(document).ready(function(){
 			processData:false,
 			contentType:false,
 			success:function(result){
-				alert("upload 성공")
+				console.log(result);
 			}
 		
 		})

@@ -95,14 +95,14 @@
 	/// 선언 > 컨트롤러 > 콜백 > 호출
 	
 		return {// 메모리 올라가 있던걸 다시 회수하여 관리하는 역할
-			add:add,  // json 형식으로 작성한것
-			getList:getList, //  변수명:함수명
+			add:add,  // json 형식 작성법이 이러한 형식(json형식 작성 법이 아니면 그냥add만 작성가능)
+			getList:getList, 
 			reDetail:reDetail, // 호출한 곳으로 다시 보내준다
 			reupdate:reupdate,
 			remove:remove
 			};
 		
-})() //저 괄호는 뭐야 무슨 용도인지 모르겠음>>???
+})() //var=service로 한거에 대한 괄호
 
 $(document).ready(function(){
 	// 상세페이지가 실헹되면 글쓰기버튼은 비활성화
