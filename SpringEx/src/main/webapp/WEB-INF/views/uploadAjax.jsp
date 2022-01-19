@@ -14,6 +14,9 @@
 	<input type="file" name="uploadFile" multiple>
 </div>
 <input type="submit" value="전송">
-	
+	<div id="uploadResult">
+		<ul>
+		</ul>
+	</div>
 </body>
 </html>

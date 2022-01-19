@@ -9,11 +9,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+
 import org.jht.domain.AttachFileDTO;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +43,7 @@ public class UploadController {
 		// 파일업로드 종료지점
 		String uplaodFolder="D:\\study\\upload";
 		    // 매개변수(파일 업로드) 변수명      :  배열 이름
-		for(MultipartFile multipartFile : uploadFile){ //어떠한 형식으로 구성되어있는건지 모르겠움,?//>>multipartFile이 여기말고 다른곳에 있나<<? 왜 이름 변경 다해도 빨간줄뜨냐
+		for(MultipartFile multipartFile : uploadFile){ 
 			// 사용자가 업로드 한 실제 파일의 이름
 			System.out.println("업로드 파일이름 ="+multipartFile.getOriginalFilename()); // 변수명.파일이름들고오는 메서드
 			// 사용자가 업로드 한 실제 파일 크기
@@ -91,7 +96,7 @@ public class UploadController {
 	
 	// uploadAjax.jsp에서 ajax를 이용해서 파일 업로드 controller
 	@PostMapping(value="uploadAjaxAction", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<ArrayList<AttachFileDTO>> uploadAjaxAction(MultipartFile[] uploadFile) {
+	public ResponseEntity<ArrayList<AttachFileDTO>> uploadAjaxAction(MultipartFile[] uploadFile) { // ResponseEntity의 정확한 쓸모 이건 비동기식이 아닌데>>?>? 
 		// AttachFileDTO에 저장되는 값이 여러파일에 대한 값이면 배열로 처리가 되어야 하므로 ArrayList타입이 되어야함
 		ArrayList<AttachFileDTO> list = new ArrayList<>();
 		// 파일업로드 종료지점
@@ -169,6 +174,54 @@ public class UploadController {
 		} // for문 end 
 		// 통신상태가 정상적이면(HttpStatus.OK)하면 ArrayList(list)에 저장되어있는 값을 uploadAjax.js에 있는 ajax에 success로 보내라
 		return new ResponseEntity<>(list,HttpStatus.OK);
+	}
+	// 파일 업로듷나 파일 타입이 이미지일때 웹브라우저에 이미지를 띄우기 위해서
+	@GetMapping("display")
+	public ResponseEntity<byte[]> getfile(String fileName) { // getFile()은 문자열로 파일의 경로가 포함된 fileName을 매개변수 받고 이전수(byte[](이진수)를 전송) 
+		System.out.println("url주소를 통한 fileName="+fileName);
+		
+		File file = new File("D:\\study\\upload\\"+fileName);
+		
+		System.out.println("file="+file);
+		
+		ResponseEntity<byte[]> result = null;
+		// byte[]로 이미지 파일의 데이터를 전송할때 브라우저에 보내는MIME타입이 파일의 종류(JPG, PNG, XLS, PPT)에 따라 달라집나다
+		// 이 부분을 패걀하기 위해서  prodeContentType()을 이용하여 적절한mime 타입 데이터를Http의 헤더 메세지에 포함할수 있도록 처리
+		try {
+			HttpHeaders header = new HttpHeaders();
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
+		}catch(IOException e){
+			e.printStackTrace();
+			
+		}
+		return result;
+	}
+	// 파일 업로드나 파일 타입이 이미지가 아닐때(.xls, .ppt, .txt) 웹브라우저를 통해서 download할수 있도록
+	// 댓글쓰기를 하기 위한 reqeustMapping
+	// mapping을 할때 우리가 원하는 데이터 다입을 강제함으로써 오류상황을 줄일수있다
+	// comsumes : 들어오는 데이터 타입 정의(생략가능)
+	// produces : 뱐환하는 데이터 타입의 정의(셍략가능)
+	// * 생략을 하게되면, 웹브라우저가 알아서 타입을 판단 *
+	// 웹브라우저가 이파일을 download해야하는 파일입니다 라는 것을 인지할 수있도록 반환이 되야함
+	// 그러기 우히애서는 AAPPLICATION_OCTET_STREAM_VALUE 타입으로 반환데이터 타입을 선언합니다
+	@GetMapping(value="download",  produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
+	public ResponseEntity<Resource> downloadFile(String fileName) {
+		System.out.println("download fileName="+fileName);
+		
+		Resource resource = new FileSystemResource("D:\\study\\upload\\"+fileName);
+		
+		System.out.println("download resource="+resource);
+		
+		String resourceName = resource.getFilename();
+		
+		HttpHeaders header = new HttpHeaders();
+		
+		try {
+			header.add("Content-Dispostion","attachment: filename"+ new String(resourceName.getBytes("UTF-8"),"iso-8859-1")); 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity<Resource>(resource,header,HttpStatus.OK);
 	}
 }
 	

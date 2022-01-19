@@ -15,7 +15,7 @@
 					console.log(result); 
 					// callback함수선언
 					// 만약에 callback이 있으면
-					if(callback) // controller로 보낸후 다시 불러온다
+					if(callback) // controller로 보낸후 다시 불러온다 (성공적으로 적용한뒤 하는 것)
 					// callback함수를 호풀	
 						callback(result);
 				},

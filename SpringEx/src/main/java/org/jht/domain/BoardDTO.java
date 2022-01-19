@@ -1,5 +1,7 @@
 package org.jht.domain;
 
+import java.util.ArrayList;
+
 public class BoardDTO {
 	private int bno;
 	private String title;
@@ -8,7 +10,16 @@ public class BoardDTO {
 	private String regdate;
 	private int cnt;
 	private int good;
+	
+	private ArrayList<AttachFileDTO> attachList; // 하나의 게시물에 여러 파일을 띄우게 할수 있도록 배열로 만든다
 
+
+	public ArrayList<AttachFileDTO> getAttachList() {
+		return attachList;
+	}
+	public void setAttachList(ArrayList<AttachFileDTO> attachList) {
+		this.attachList = attachList;
+	}
 	public int getBno() {
 		return bno;
 	}
@@ -51,10 +62,11 @@ public class BoardDTO {
 	public void setGood(int good) {
 		this.good = good;
 	}
+	
 	@Override
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regdate=" + regdate + ", cnt=" + cnt + ", good=" + good + "]";
+				+ ", regdate=" + regdate + ", cnt=" + cnt + ", good=" + good + ", attachList=" + attachList + "]";
 	}
 	
 }
