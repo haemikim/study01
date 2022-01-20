@@ -39,13 +39,13 @@ $(document).ready(function(){
 			 * $("span").data("age") => 13 data함구 괄호안에 매개변수가 하나면getter
 			 * 
 			 */
-			str+="<input type='text' name+'attachList["+i+"].fileName' value='"+$(obj).data("filename")+"'>"
-			str+="<input type='text' name+'attachList["+i+"].uuid' value='"+$(obj).data("uuid")+"'>"
-			str+="<input type='text' name+'attachList["+i+"].uploadPath' value='"+$(obj).data("path")+"'>"
-			str+="<input type='text' name+'attachList["+i+"].image' value='"+$(obj).data("type")+"'>"
+			str+="<input type='hidden' name='attachList["+i+"].fileName' value='"+$(obj).data("filename")+"'>"
+			str+="<input type='hidden' name='attachList["+i+"].uuid' value='"+$(obj).data("uuid")+"'>"
+			str+="<input type='hidden' name='attachList["+i+"].uploadPath' value='"+$(obj).data("path")+"'>"
+			str+="<input type='hidden' name='attachList["+i+"].image' value='"+$(obj).data("type")+"'>"
 		})
-		formObj.append(str);
-	})
+		formObj.append(str).submit(); // insert개념으로 사용 기존의 내용에서 계속 정보를 추가한다
+	}) // write의 제목이랑 내용부분과 위의 str부분이 append에 의해서 합쳐졌다
 	
 	// 파일 선택의 내용이 변경되면
 	
@@ -95,7 +95,7 @@ function showUploadedFile(uploadresultArr){
 			var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName)
 			str+="<li data-path='"+obj.uploadPath+"'";
 			str+="data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>";
-			str+="<img src='/display?fileName="+fileCallPath+"'></li>"
+			str+="<a href='/download?fileName="+fileCallPath+"'>"+obj.fileName+"</a></li>"
 		}else{// 사용자가 업로드 한 파일의 타입이 이지미면(.inp, .png, .git),
 			var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName)
 			//console.log(fileCallPath);
@@ -106,6 +106,6 @@ function showUploadedFile(uploadresultArr){
 		}	
 				
 	})
-	$("#uploadResult ul").html(str)
+	$("#uploadResult ul").html(str) // 덮어쓰기 형태로 나옴
 }
 

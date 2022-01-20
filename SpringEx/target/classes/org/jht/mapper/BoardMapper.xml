@@ -5,9 +5,19 @@
 <mapper namespace="org.jht.mapper.BoardMapper">
 		<insert id="write">
 			insert into board2(title,content,writer,regdate)
-			values(#{title},#{content},#{writer},now())
+			values(#{title},#{content},#{writer},#{regdate})
 		</insert>
-		<select id="list" resultType="org.jht.domain.BoardDTO">
+		
+		<!-- Board테이블에 insert 하기전에 bno값을 미리 만들어 놓고 insert해야함 -->
+		<insert id="insertSelectKey">
+			<selectKey keyProperty="bno" order="BEFORE" resultType="int"> <!-- 여기서 생성한 bno를 밑에 적용시킨다 -->
+				select max(bno)+1 bno from board2;
+			</selectKey>
+			insert into board2(bno,title,content,writer,regdate)
+			values(#{bno},#{title},#{content},#{writer},#{regdate})
+		</insert>
+		
+		<select id="list" resultType="org.jht.domain.BoardDTO" >
 			select *
 			from(
 			select @rownum:=@rownum+1 as rownum, b2.* 

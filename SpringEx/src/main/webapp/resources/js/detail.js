@@ -105,6 +105,39 @@
 })() //var=service로 한거에 대한 괄호
 
 $(document).ready(function(){
+	// bno값
+	var bno=$("#bno").html();
+	
+	// 상세페이지가 시작하자마자 이미지를 출력하기 위한 Ajax
+	$.getJSON("/board2/fileList/"+bno+".json",
+		function(data){ // BoardController에 있는 fileList를 통해 얻어진 select결과를 data에 저장한 후,
+		    // detail.jsp에 뿌리기
+			var str="";
+			console.log(data)
+			$(data).each(function(i,obj){
+				if(!obj.image){  // 사용자가 업로드한 파일의 타입이 이미지가 아니면(excel문서파일, ppt),
+					var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"_"+obj.fileName)
+					str+="<li data-path='"+obj.uploadPath+"'";
+					str+="data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>";
+					str+="<a href='/download?fileName="+fileCallPath+"'>"+obj.fileName+"</a></li>"
+				}else{// 사용자가 업로드 한 파일의 타입이 이지미면(.inp, .png, .git),
+					var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName)
+					//console.log(fileCallPath);
+					// imge태그를 사용해서 웹브라우저레 출력
+					str+="<li data-path='"+obj.uploadPath+"'";
+					str+="data-uuid='"+obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"'>";
+					str+="<img src='/display?fileName="+fileCallPath+"'></li>"
+				}	
+		})
+			$("#uploadResult ul").html(str) // 덮어쓰기 형태로 나옴
+	})	
+	
+	
+	
+	
+	
+	
+	
 	// 상세페이지가 실헹되면 글쓰기버튼은 비활성화
 	$("#modalRegisterBtn").modal("hide");
 	// 상세페이지가 실헹되면 수정버튼은 비활성화

@@ -35,6 +35,12 @@
 			<a href="/board2/modify?bno=${detail.bno}">수정</a>
 			<a href="/board2/remove?bno=${detail.bno}">삭제</a>
 		</div>
+		
+		<div id="uploadResult" >
+			<ul>
+			</ul>
+		</div>
+		
         <div class="panel-body">
            <!-- Button trigger modal -->
            <button id="addReplyBtn" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">

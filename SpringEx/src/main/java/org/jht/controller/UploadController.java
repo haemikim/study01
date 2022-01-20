@@ -96,7 +96,7 @@ public class UploadController {
 	
 	// uploadAjax.jsp에서 ajax를 이용해서 파일 업로드 controller
 	@PostMapping(value="uploadAjaxAction", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<ArrayList<AttachFileDTO>> uploadAjaxAction(MultipartFile[] uploadFile) { // ResponseEntity의 정확한 쓸모 이건 비동기식이 아닌데>>?>? 
+	public ResponseEntity<ArrayList<AttachFileDTO>> uploadAjaxAction(MultipartFile[] uploadFile) {  
 		// AttachFileDTO에 저장되는 값이 여러파일에 대한 값이면 배열로 처리가 되어야 하므로 ArrayList타입이 되어야함
 		ArrayList<AttachFileDTO> list = new ArrayList<>();
 		// 파일업로드 종료지점

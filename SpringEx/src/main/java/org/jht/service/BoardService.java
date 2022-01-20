@@ -3,8 +3,9 @@ package org.jht.service;
 import java.util.ArrayList;
 
 import org.jht.domain.Criteria;
+import org.jht.domain.AttachFileDTO;
 import org.jht.domain.BoardDTO;
-
+//  사용자가 작성한 데이터를(DTO) 저장하는 곳<<? 
 public interface BoardService {
 	// 게시판 글쓰기 설계
 	public void write(BoardDTO board);
@@ -18,4 +19,6 @@ public interface BoardService {
 	public void remove(BoardDTO board);
 	// 게시판 페이징에 쓰일 데이터 건수
 	public int getTotalCount(Criteria cri);
+	// 게시판 상세페이지에 파일 업로드된 이미지 출력
+	public ArrayList<AttachFileDTO> fileList(int bno);
 }
