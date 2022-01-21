@@ -37,7 +37,7 @@ public class Board3Controller {
 	public void list(Criteria cri, Model model) {
 		System.out.println("리스트의 제목을 누르셧나여"+cri);
 		
-		model.addAttribute("list", )
+//		model.addAttribute("list", )
 	}
 	
 	

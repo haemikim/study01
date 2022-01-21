@@ -15,6 +15,10 @@
 </head>
 <body>
 	<h1>게시판 목록 리스트</h1>
+	<!-- ${login} -->
+	<c:if test="${login!=null}"><!-- 이게 참이면 조건(글쓰기)을 보여준다 -->
+		<div class="border-0 small"><a href="/board2/write" class="page-link">글쓰기</a></div>
+	</c:if>
 	<div class="card-body">
        <div class="table-responsive">
            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
