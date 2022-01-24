@@ -13,10 +13,10 @@ public class BoardDTO {
 	
 	private ArrayList<AttachFileDTO> attachList; // 하나의 게시물에 여러 파일을 띄우게 할수 있도록 배열로 만든다
 
-
 	public ArrayList<AttachFileDTO> getAttachList() {
 		return attachList;
 	}
+	
 	public void setAttachList(ArrayList<AttachFileDTO> attachList) {
 		this.attachList = attachList;
 	}
@@ -68,5 +68,6 @@ public class BoardDTO {
 		return "BoardDTO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
 				+ ", regdate=" + regdate + ", cnt=" + cnt + ", good=" + good + ", attachList=" + attachList + "]";
 	}
+
 	
 }

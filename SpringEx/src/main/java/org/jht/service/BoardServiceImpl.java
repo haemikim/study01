@@ -3,12 +3,10 @@ package org.jht.service;
 import java.util.ArrayList;
 
 import org.jht.domain.Criteria;
-import org.jht.domain.WriteDTO;
 import org.jht.domain.AttachFileDTO;
 import org.jht.domain.BoardDTO;
 import org.jht.mapper.AttachMapper;
 import org.jht.mapper.BoardMapper;
-import org.jht.mapper.WriteMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,22 +16,18 @@ public class BoardServiceImpl implements BoardService {
 	private BoardMapper bmapper;
 	@Autowired
 	private AttachMapper amapper;
-	@Autowired
-	private WriteMapper wmapper;
+
 	
 	// 게시판 글쓰기 설계된것을 구현
 	@Transactional
 	public void write(BoardDTO board) {
 		// 제목과 내용을 board태이블에 insert
 		bmapper.insertSelectKey(board);
-//		
-//		board.getAttachList().forEach(main->{
-//			main.setBno();
-//		    wmapper.content(main)
-//		});
-//			
-
 		
+		if(board.getAttachList() == null) { // 파일을 첨부 안하고 글만 작성할수있게 해놓은거
+			return;
+		}
+
 		// 파일명, 파일 경로, 파일 타입, uuid값을 attach테이블에 insert
 		//BoardList에 있는 AttachList()를 가져와서 반복문으로 실행하여 attach변수에 저장 
 		// (AttachList가 배열이라 반복문을 사용하여 전체를 들고올 수 있게 해준다)
@@ -45,8 +39,8 @@ public class BoardServiceImpl implements BoardService {
 			// 들고오는 걸로되어있어 타입이 맞지않아  위와 같이 board에 연결된 
 			// AttachList를 들고와서 사용한다
 		}); 
-		
 	}
+
 	// 게시판 목록리스트 설계된것을 구현
 	public ArrayList<BoardDTO> list(Criteria cri) {
 		return bmapper.list(cri);

@@ -7,7 +7,7 @@ import org.jht.domain.BoardDTO;
 
 public interface BoardMapper {
 	//게시판 글쓰기와 관련이 되어 있는 DB작업에 설계
-	public void write(BoardDTO board);
+	public boolean write(BoardDTO board);
 	//게시판 글쓰기와 관련이 되어 있는 DB작업에 설계
 	public void insertSelectKey(BoardDTO board);
 	//게시판 목록리스트와 관련이 되어 있는 DB작업에 설계

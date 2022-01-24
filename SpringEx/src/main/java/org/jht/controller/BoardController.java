@@ -37,6 +37,7 @@ public class BoardController {
 	public String writePost(BoardDTO board) {
 		System.out.println("write post....."+board);
 		// 잘 작동하면 console에 메시지와 작성한 메모 띄우기
+
 		
 		service.write(board); // 사용자가 작성한 데이터를 들고온당
 		
@@ -48,7 +49,7 @@ public class BoardController {
 		System.out.println("board2/list="+cri);
 								
 		model.addAttribute("list", service.list(cri));
-		//pageDTO의 데이터를 jsp에 부린다
+		//pageDTO의 데이터를 jsp에 부른다
 		int total=service.getTotalCount(cri);
 		model.addAttribute("pageMaker", new PageDTO(cri,total));
 	}
