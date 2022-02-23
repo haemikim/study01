@@ -38,6 +38,6 @@ public class SampleController {
 		System.out.println("pw="+smd.getPw());
 		System.out.println("name="+smd.getName());
 		
-		//return "redirect:/ memberDTO"; // 되는지 확인 제발 해보기 시발 톰캣 안되서 확인 못함
+		//return "redirect:/ memberDTO"; // 되는지 확인 제발 해보기 시발 톰캣 안돼서 확인 못함
 	}
 }

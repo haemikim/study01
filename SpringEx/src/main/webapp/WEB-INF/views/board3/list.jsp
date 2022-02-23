@@ -32,8 +32,8 @@
                <!-- jstl에서 사용되는 문법 형식이< % % >문대신 $ { } 문으로 사용된다 -->
                <!-- forEach는 반복문 -->
                             <!-- for(변수명 : 배열){}과 같은 형식 -->
-                            <!-- item: 데이터를 저장하는 구조 (list, Array), 배열 -->
-               		<c:forEach items="${list}" var="board"><!-- var = 변수명 (memberDTO의 변수명) -->
+                            <!-- item: 데이터를 저장하는 구조 (list, Array), 배열 ???? -->
+               		<c:forEach items="${list}" var="board"><!-- var = 변수명 (boardDTO의 변수명) -->
 						<tr>
 						    <td>${board.bno}</td>
 						    <td><a href="/board2/detail?bno=${board.bno}">${board.title}</a></td>

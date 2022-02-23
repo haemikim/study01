@@ -14,9 +14,9 @@ public class Criteria {
 	
 	// 기본생성자(기본값이 각 10개씩 묶어서 첫번째 페이지 나오게 하기)
 	Criteria(){
-		this(1,10); //한페이지에 10개
+		this(1,10); //한페이지에 10개 (this가 밑에 int를 뜻함)
 	}// 정해진 숫자에 따라 다르게 나오게 하기
-	Criteria(int pageNum, int amount){
+	Criteria(int pageNum, int amount){ // 위의 기본생성자에 정해놓은 번위를 pageNum, amount으로 적용시킨것(위의 기본생성자가 없을 시, pageNum, amount 범위를 작성해야한다)
 		this.pageNum=pageNum;
 		this.amount=amount;
 	}

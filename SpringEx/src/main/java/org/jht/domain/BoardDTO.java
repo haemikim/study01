@@ -1,7 +1,7 @@
 package org.jht.domain;
 
 import java.util.ArrayList;
-
+// db에 에있는 정보를 캡슐화해서 보관(private과 같은 데이터 접근자 /getter,setter를 통해 데이터 접근 )
 public class BoardDTO {
 	private int bno;
 	private String title;

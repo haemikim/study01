@@ -58,9 +58,8 @@ $(document).ready(function(){
 		
 		console.log(files); // console로 확인		
 		for(var i=0;i<files.length;i++){ // files 전체 확인
-			// 파일의 크기가 이상이면 
+			// 파일의 크기가 이상이면 밑에 있는거 하지마라 
 			if(!checkExtension(files[i].size,files[i].name)){
-				// 밑에 있는거 하지마라
 				return false;
 			}
 			formData.append("uploadFile",files[i]); // 가상의 form태그의 uploadFile에 files를 저장시킨다 

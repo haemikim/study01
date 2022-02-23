@@ -38,7 +38,7 @@ public class AttachFileDTO {
 		this.bno = bno;
 	}
 	@Override
-	public String toString() {
+	public String toString() { // 잘 만들어지는지 확인용 엄청 필요하거나 그런건 아님
 		return "AttachFileDTO [fileName=" + fileName + ", uploadPath=" + uploadPath + ", uuid=" + uuid + ", image="
 				+ image + ", bno=" + bno + "]";
 	}

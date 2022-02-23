@@ -27,7 +27,7 @@
 			<when test="search == null">
 				where 1=1
 			</when> 
-			<when test="search == 'T'.toString()">
+			<when test="search == 'T'.toString()"> <!-- cri에 있는 search가 'T'일때 (그냥 T만 적으면 char로 보니깐 String 타입이란걸 toString()으로 적어준다)-->
 				where title like concat('%',#{keyword},'%')
 			</when>
 			<when test="search == 'C'.toString()">
@@ -49,7 +49,7 @@
 			) as boardList
 		
 
-	<!-- 부등호를 부등호로 인식을 하지 못한다 그래서 부등호로 인식핡수있게 CDATA 사용 -->
+	<!-- 코드작성시 부등호를 부등호로 인식을 하지 못한다 그래서 부등호로 인식핡수있게 CDATA 사용 -->
 	<![CDATA[
 	 	where rownum > (#{pageNum}-1)*#{amount} 
 		and rownum <= #{pageNum}*#{amount}

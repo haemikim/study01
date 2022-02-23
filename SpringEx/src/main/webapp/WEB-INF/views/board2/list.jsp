@@ -50,21 +50,21 @@
                </tbody>
            </table>
                    <!--jsp에 있는 name이랑 DTO에 클래스가 있으면 보낼수가있다-->
-           <form id="actionForm" action="/board2/list" method="get">
+           <form id="actionForm" action="/board2/list" method="get"> <!-- jsp에서 xml이랑 연결할려면 form태그를 사용하거나 a태그를 통헤서만 연결할수있다 -->
 	           <div class="form-control bg-light border-0 small"> <!-- BoardController에 list부분에 model로 사용! -->
 	           	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
 	           	<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
 	                 <select name="search">
-	                 	 <option value="T">제목</option>
-	                 	 <option value="C">내용</option>
-	                 	 <option value="W">작성자</option>
-	                 	 <option value="TC">제목 + 내용</option>
-	                 	 <option value="TCW">제목 + 내용 + 작성자</option>
+	                 	 <option value="T"<c:out value="${pageMaker.cri.search eq 'T'?'selected':''}" />>제목</option>
+	                 	 <option value="C"<c:out value="${pageMaker.cri.search eq 'C'?'selected':''}" />>내용</option>
+	                 	 <option value="W"<c:out value="${pageMaker.cri.search eq 'W'?'selected':''}" />>작성자</option>
+	                 	 <option value="TC"<c:out value="${pageMaker.cri.search eq 'TC'?'selected':''}" />>제목 + 내용</option>
+	                 	 <option value="TCW"<c:out value="${pageMaker.cri.search eq 'TCW'?'selected':''}" />>제목 + 내용 + 작성자</option>
 	                 </select>
 	                 <input type="text" name="keyword" value="${pageMaker.cri.keyword}">
 	                 <input type="submit" value="검색">
                    </div>
-             </form>
+                   
                    <div class="col-sm-12 col-md-7 dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
                    <ul class="pagination">
 	                    <c:if test="${pageMaker.prev}">
@@ -84,7 +84,9 @@
 	                   	</c:if>
                    </ul>
                     
-                  </div>
+                 </div>
+             </form>
+                   
        </div>
 	</div>
 </body>

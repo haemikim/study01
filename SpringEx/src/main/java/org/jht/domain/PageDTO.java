@@ -12,7 +12,7 @@ public class PageDTO {
 	// board테이블의 총 데이터 건수(어디까지 나오게 해야하는지 알아야하니깐)
 	private int total;
 	// endPage를 계산하기 위한 pageNum가 필요하므로 Criteria클래스를 포함
-	private Criteria cri;
+	private Criteria cri; // (기본생성자는 선언시 자동셍성)
 	
 	//public을 가져가야지 컨트롤러에서 실행가능
 	public PageDTO(Criteria cri, int total){

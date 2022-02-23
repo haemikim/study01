@@ -36,6 +36,7 @@ public class UploadController {
 	public void updloadAjaxForm() {
 		System.out.println("파일 업로드 화면,,");
 	}
+	
 	// upload.jsp에서 form태그를 이용해서 파일 업로드
 	@PostMapping("uploadAction")
 	public void uploadAction(MultipartFile[] uploadFile) {// 한개의 클래스에 여러가지를 저장할려면 배열을 사용해야하쥬 (객체[] 객체명)
@@ -56,7 +57,6 @@ public class UploadController {
 			try {// saveFile변수에 저장되어 있는 폴더명으로 파일을 보내라
 				multipartFile.transferTo(saveFile); // transferTo사용시 반드시 예외를 작성해야한다
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace(); // 에러 메세지의 발생 근원지를 찾아서 단계별로 에러를 출력한다.
 
 			}// end try
@@ -72,9 +72,8 @@ public class UploadController {
 		// 2022-01-18 
 		String str=sdf.format(date);
 		System.out.println("date="+date);
-		System.out.println(str.replace("-", File.separator));
-		// 2022-01-18 -> 2022\01\18
-		return str.replace("-", File.separator); // replace(앞,뒤)는 앞에있는 형식으로 뒤에껄 변경시크는 것 
+		System.out.println(str.replace("-", File.separator));// File.separator는 \, /를 뜻함 파일경로를 분리해주는 메서드
+		return str.replace("-", File.separator); // replace(앞,뒤)는 앞에있는 형식으로 뒤에껄 변경시키는 것 
 	}
 	// 썸네일 이미지 생성을 할 것인지(true) 안할것인지(false) 판단하는 메서드 (사용자가 업로드 한 파일이 이미지이면 생성, 그렇지 않으면 생성안함)
 	private boolean checkImage(File file) {
@@ -83,7 +82,7 @@ public class UploadController {
 			String contentType=Files.probeContentType(file.toPath());
 			// 그 파일의 타ㄴ입이 image이면 true, 그렇지 않으면 false
 			return contentType.startsWith("image");
-		}catch(IOException e) { //IOException - 파일이 없을 때 발생할 에러. 호출함수인 xml의 DispatcherServlet class로 예외처리 전가
+		}catch(IOException e) { //IOException - 파일이 없을 때 발생할 에러. 호출함수인 xml의 DispatcherServlet class로 예외처리 전가 // 파일이 들어오고 나갈때 오류가 잇으면 발생
 			
 			e.printStackTrace();
 		}
@@ -93,9 +92,9 @@ public class UploadController {
 	
 	
 	
-	
 	// uploadAjax.jsp에서 ajax를 이용해서 파일 업로드 controller
-	@PostMapping(value="uploadAjaxAction", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	@PostMapping(value="uploadAjaxAction", produces= {MediaType.APPLICATION_JSON_UTF8_VALUE}) // json타입은 무조건 produces 작성
+	  		// ResponseEntity가 json타입을 사용하여 호출한 곳으로 다시보내줄때 사용!!
 	public ResponseEntity<ArrayList<AttachFileDTO>> uploadAjaxAction(MultipartFile[] uploadFile) {  
 		// AttachFileDTO에 저장되는 값이 여러파일에 대한 값이면 배열로 처리가 되어야 하므로 ArrayList타입이 되어야함
 		ArrayList<AttachFileDTO> list = new ArrayList<>();
@@ -103,20 +102,21 @@ public class UploadController {
 		String uploadFolder="D:\\study\\upload";
 		
 		// 폴더생성					(기존폴더,		현재폴더)를 결합
-		File uploadPath = new File(uploadFolder,getFolder());
+		File uploadPath = new File(uploadFolder,getFolder()); //File은 기존 spring에 있는 문법
 		System.out.println("uploadPath="+uploadPath);
 		
-		// 설명 있어야함>>?????
+		// DTO의 uploadPath에 경로를 저장하기 위한 변수 선언
 		String uploadFolderPath=getFolder();
 		
 		// 현재만들려고 하는 폴더가 없으면
-		if(uploadPath.exists()==false) {
+		if(uploadPath.exists()==false) { //exists() : 지정 경로에 파일 존재유무 확인
 			// 폴더생성
-			uploadPath.mkdirs(); // exists(), mkdirs() 인스턴스 매서드
+			uploadPath.mkdirs();         //mkdirs() : 만들고자 하는 폴더가 없으면 생성(상위 폴더까지!) 
+			// exists(), mkdirs() 인스턴스 매서드
 		}
 		
 		
-		for(MultipartFile multipartFile : uploadFile){
+		for(MultipartFile multipartFile : uploadFile){ // 매개변수의 변수명에 uploadFile이라는 배열을 저장시키는것
 			
 			// UpLoadController에 있는 uploadAjaxAction에서 AttachFileDTO를 사용해서 값을 저장해야 되는데
 			// 이럴경우 UploadController에 AttachFileDTO가 없으면 사용할수 없습니다
@@ -141,7 +141,7 @@ public class UploadController {
 			// UUID + "_" + getOriginalFilename()의 조합으로 파일명 생성
 			uploadFileName=uuid.toString()+"_"+uploadFileName;
 			
-			File saveFile = new File(uploadPath,uploadFileName);
+			File saveFile = new File(uploadPath,uploadFileName); //>>???이새끼 뭐지
 			
 			try {
 				// saveFile변수에 저장되어 있는 폴더명으로 파일을 보내라
@@ -153,13 +153,14 @@ public class UploadController {
 				
 				
 				//이미지파일이면
-				if(checkImage(saveFile)) {
+				if(checkImage(saveFile)) { // checkImage()는 함수
+					
 					// FileType값(image)을 AttachFileDTO클래스(attachdto)에 uploadPath에 저장(setImage)
 					attachdto.setImage(true);
 					// 썸네일 파일을 생성하기 전에 썸네일 파일이름 추출
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath,"s_"+uploadFileName)); // FileOutputStram 밖으로 뺸다
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath,"s_"+uploadFileName)); // FileOutputStram : 밖으로 뺸다
 					// 썸네일 파일을 생성함
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(),thumbnail, 100,100);
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(),thumbnail, 100,100); // 썸네일용 모든 사진의 크기를 맞추기 위해 한번 더 저장해서 사용
 					// 썸네일 종료(메모리 공간 함수)
 					thumbnail.close();
 				}
@@ -167,7 +168,6 @@ public class UploadController {
 				list.add(attachdto); // add를 해서 각각[0]부터 저장이 된다
 				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}// end try
 			
@@ -203,7 +203,7 @@ public class UploadController {
 	// produces : 뱐환하는 데이터 타입의 정의(셍략가능)
 	// * 생략을 하게되면, 웹브라우저가 알아서 타입을 판단 *
 	// 웹브라우저가 이파일을 download해야하는 파일입니다 라는 것을 인지할 수있도록 반환이 되야함
-	// 그러기 우히애서는 AAPPLICATION_OCTET_STREAM_VALUE 타입으로 반환데이터 타입을 선언합니다
+	// 그러기 위해서는 AAPPLICATION_OCTET_STREAM_VALUE 타입으로 반환데이터 타입을 선언합니다
 	@GetMapping(value="download",  produces=MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	public ResponseEntity<Resource> downloadFile(String fileName) {
 		System.out.println("download fileName="+fileName);

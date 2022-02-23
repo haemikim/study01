@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.jht.domain.Criteria;
 import org.jht.domain.AttachFileDTO;
 import org.jht.domain.BoardDTO;
-//  사용자가 작성한 데이터를(DTO) 저장하는 곳<<? 
+
 public interface BoardService {
 	// 게시판 글쓰기 설계
 	public void write(BoardDTO board);
